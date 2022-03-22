@@ -58,9 +58,14 @@ class _LoginViewState extends State<LoginView> {
                     final email = _email.text;
                     final password = _password.text;
                     FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
-                    final usercredentials = await  FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
-                    print  (usercredentials);
-
+                    await  FirebaseAuth.instance.signInWithEmailAndPassword(
+                      email: email, 
+                      password: password,
+                      );
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                      '/notes/',
+                      (route) => false,
+                      );
                   },
                   child: const Text('Login'),
                 ),
