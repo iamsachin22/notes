@@ -1,9 +1,8 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'package:notes/services/auth/auth_service.dart';
 import 'package:notes/services/crud/notes_service.dart';
 import 'package:notes/views/notes/new_note_view.dart';
+import 'package:notes/views/notes/notes_list_view.dart';
 
 import '../../constants/routes.dart';
 import '../../enums/menu_action.dart';
@@ -26,11 +25,11 @@ class _NotesViewState extends State<NotesView> {
     super.initState();
   }
 
-  @override
-  void dispose() {
-    _noteService.close();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   _noteService.close();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +81,21 @@ class _NotesViewState extends State<NotesView> {
                 builder: (context, snapshot){
                   switch(snapshot.connectionState){
                     case ConnectionState.waiting:
-                     return const Text('waiting!!');
+                    case ConnectionState.active:
+                    if(snapshot.hasData){
+                      final allNotes = snapshot.data as List<DatabaseNote>;
+                      return NotesListView(
+                        notes: allNotes, 
+                        onDeleteNote:(note) async{
+                          await _noteService.deleteNote(id: note.id);
+                        },
+                        );
+                    }
+                    else{
+                      return const CircularProgressIndicator();
+
+                    }
+                    
                     default:
                     return const CircularProgressIndicator();
                   }
