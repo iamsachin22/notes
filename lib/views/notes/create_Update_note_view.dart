@@ -4,6 +4,9 @@ import 'package:notes/cloude/firebase_cloude_storage.dart';
 import 'package:notes/services/auth/auth_service.dart';
 import 'package:notes/services/crud/notes_service.dart';
 import 'package:notes/utilities/generics/get_argument.dart';
+import 'package:share_plus/share_plus.dart';
+
+import '../../utilities/dialog/share_empty_dialog.dart';
 
 
 class CreateUpdateNoteView extends StatefulWidget {
@@ -94,8 +97,21 @@ class _CreateUpdateNoteViewState extends State<CreateUpdateNoteView> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('New Note'),
+        actions: [
+          IconButton(
+            onPressed: () async{
+              final text= _textController.text;
+              if(_note == null || text.isEmpty){
+                await showShareEmptyDialog(context);
+              }
+              else{
+                Share.share(text);
+              }
+            }, 
+            icon: const Icon(Icons.share),
+          ),
+        ],
       ),
-      //body: const Text('NOtes'),
       body: FutureBuilder(
         future: createOrGetNote(context),
         builder: (context, snapshot) {
