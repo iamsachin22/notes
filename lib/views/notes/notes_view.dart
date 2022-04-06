@@ -40,7 +40,7 @@ class _NotesViewState extends State<NotesView> {
         title: const Text('Notes'),
         actions: [
           IconButton(onPressed: () {
-            Navigator.pushNamed(context,createOrUpdateNoteRoute);
+            Navigator.of(context).pushNamed(createOrUpdateNoteRoute);
           }, 
           icon: const Icon(Icons.add),
           ),
@@ -48,9 +48,13 @@ class _NotesViewState extends State<NotesView> {
             onSelected: (value) async{
               switch(value){
                 case MenuAction.logout:
-                context.read<AuthBloc>().add(
+                final shouldLogout = await showLogOutDialog(context);
+                if(shouldLogout){
+                    context.read<AuthBloc>().add(
                   const AuthEventLogOut(),
                   );
+                }
+            
                 // devtools.log(shouldLogout.toString());
                 // break;
               }
@@ -59,7 +63,7 @@ class _NotesViewState extends State<NotesView> {
             return const [
               PopupMenuItem<MenuAction>(
                 value: MenuAction.logout,
-                child: Text('Logout'),
+                child: Text('Log out'),
             ),
             ];
            },
