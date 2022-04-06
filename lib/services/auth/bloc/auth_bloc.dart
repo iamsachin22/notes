@@ -6,7 +6,7 @@ import 'auth_state.dart';
 
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  AuthBloc(AuthProvider provider) : super(const AuthStateUnIntialized()) {
+  AuthBloc(AuthProvider provider) : super(const AuthStateUnIntialized(isLoading: true)) {
     //send email verification
     on<AuthEventSendEmailVerification>((event,emit) async{
       await provider.sendEmailVerification();
@@ -22,9 +22,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
            password: password,
            );
           await provider.sendEmailVerification();
-          emit(const AuthStateNeedsVerification());
+          emit(const AuthStateNeedsVerification(isLoading: false));
        } on Exception catch(e){
-         emit(AuthStateRegistering(e));
+         emit(AuthStateRegistering(exception: e,isLoading: false));
        }
 
     });
@@ -38,9 +38,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           isLoading: false),
         );
       } else if (!user.isEmailVerified) {
-        emit(const AuthStateNeedsVerification());
+        emit(const AuthStateNeedsVerification(isLoading: false));
       } else {
-        emit(AuthStateLoggedIn(user));
+        emit(AuthStateLoggedIn(user:user,isLoadin: false));
       }
     });
     // log in
@@ -48,6 +48,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(const AuthStateLoggedOut(
         exception: null, 
         isLoading: true,
+        loadinText: 'Please wait while LogIn'
         ),
         );
       final email = event.email;
@@ -64,14 +65,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           isLoading: false
           ),
           );
-          emit(const AuthStateNeedsVerification());
+          emit(const AuthStateNeedsVerification(isLoading: false));
       } else{
         emit(const AuthStateLoggedOut(
           exception: null, 
           isLoading: false
           ),
           );
-        emit(AuthStateLoggedIn(user));
+        emit(AuthStateLoggedIn(user:user,isLoadin: false));
       }
 
       } on Exception catch (e) {
