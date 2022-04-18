@@ -53,25 +53,48 @@ class _LoginViewState extends State<LoginView> {
             padding: const EdgeInsets.all(16.0),
             child: Column(
               children: [
+                //Image.asset('images/avatar.png'),
                 TextField(
                   controller: _email,
                   enableSuggestions: false,
                   autocorrect: false,
                   keyboardType: TextInputType.emailAddress,
                   decoration: const InputDecoration(
-                    hintText: 'Enter your email here',
+                    prefixIcon: Icon(
+                    Icons.person,
+                    color: Colors.pink,
+                  ),
+                  border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                ),
+                    hintText: 'Enter Email ID',
+                    hintStyle: TextStyle(
+                      fontWeight: FontWeight.bold
+                    ),
                   ),
                 ),
+                const SizedBox(height: 30,),
                 TextField(
                   controller: _password,
                   obscureText: true,
                   enableSuggestions: false,
                   autocorrect: false,
                   decoration: const InputDecoration(
-                    hintText: 'Enter your password here',
+                    prefixIcon: Icon(
+                  Icons.lock,
+                  color: Colors.pink,
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                ),
+                    hintText: 'Enter Password',
+                    hintStyle: TextStyle(
+                      fontWeight: FontWeight.bold
+                    ),
                   ),
                 ),
-                TextButton(
+                const SizedBox(height: 30,),
+                ElevatedButton(
                   onPressed: () async {
                     final email = _email.text;
                     final password = _password.text;
@@ -83,6 +106,17 @@ class _LoginViewState extends State<LoginView> {
                         );
                   },
                   child: const Text('Login'),
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.pink,
+                    padding: const EdgeInsets.symmetric(horizontal: 100,vertical: 20),
+                    textStyle: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    )
+                  ),
                 ),
             TextButton(
               onPressed: () {
@@ -90,7 +124,13 @@ class _LoginViewState extends State<LoginView> {
                   const AuthEventForgotPassword(),
                 );
               },
-              child: const Text('I forgot my password'),
+              child: const Text('I forgot my password',
+              style: TextStyle(
+                fontSize: 20.0,
+                color: Colors.deepPurple,
+                fontStyle: FontStyle.italic
+              ),
+              ),
             ),    
             TextButton(
               onPressed: () {
@@ -98,7 +138,11 @@ class _LoginViewState extends State<LoginView> {
                   const AuthEventShouldRegister(),
                 );
               },
-              child: const Text('Not registered yet? Register here!'),
+              child: const Text('Not registered yet? Register here!',
+              style: TextStyle(
+                fontSize: 20.0,
+                fontStyle: FontStyle.italic,
+              ),),
             )
         ],
       ),
