@@ -124,7 +124,7 @@ class _LoginViewState extends State<LoginView> {
                   const AuthEventForgotPassword(),
                 );
               },
-              child: const Text('I forgot my password',
+              child: const Text('Forgot Password',
               style: TextStyle(
                 fontSize: 20.0,
                 color: Colors.deepPurple,

@@ -63,21 +63,44 @@ class _RegisterViewState extends State<RegisterView> {
                       autocorrect: false,
                       autofocus: true,
                       keyboardType: TextInputType.emailAddress,
+                      
                       controller: _email,
                       decoration: const InputDecoration(
-                        hintText: 'Enter your Email',
+                        prefixIcon: Icon(
+                    Icons.person,
+                    color: Colors.pink,
+                  ),
+                  border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                ),
+                        hintText: 'Enter Email ID',
+                        hintStyle: TextStyle(
+                      fontWeight: FontWeight.bold
+                    ),
                       ),
                     ),
+                    const SizedBox(height: 30,),
                     TextField(
                       controller: _password,
                       obscureText: true,
                       enableSuggestions: false,
                       autocorrect: false,
                       decoration: const InputDecoration(
-                        hintText: 'Enter your Password',
+                        prefixIcon: Icon(
+                    Icons.person,
+                    color: Colors.pink,
+                  ),
+                  border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                ),
+                        hintText: 'Enter Password',
+                        hintStyle: TextStyle(
+                      fontWeight: FontWeight.bold
+                    ),
                       ),
                     ),
-                      TextButton(
+                      const SizedBox(height: 30,),
+                      ElevatedButton(
                         onPressed: () async {
                           final email = _email.text;
                           final password = _password.text;
@@ -89,6 +112,17 @@ class _RegisterViewState extends State<RegisterView> {
                           ));
                     },
                     child: const Text('Register'),
+                    style: ElevatedButton.styleFrom(
+                    primary: Colors.pink,
+                    padding: const EdgeInsets.symmetric(horizontal: 100,vertical: 20),
+                    textStyle: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    )
+                  ),
                   ),
                   TextButton(
                     onPressed: () => {
@@ -96,7 +130,13 @@ class _RegisterViewState extends State<RegisterView> {
                         const AuthEventLogOut(),
                       ),
                     },
-                     child: const Text('Already Registred ? Login here !'),
+                     child: const Text('Already Registred ? Login here !',
+                     style: TextStyle(
+                fontSize: 20.0,
+                color: Colors.deepPurple,
+                fontStyle: FontStyle.italic
+              ),),
+                     
                      ),
               ],
             ),
