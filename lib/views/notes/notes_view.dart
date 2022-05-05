@@ -36,14 +36,24 @@ class _NotesViewState extends State<NotesView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: FloatingActionButton(
+          child: const Icon(Icons.add),
+          onPressed: () {
+            Navigator.of(context).pushNamed(createOrUpdateNoteRoute);
+          },
+          ),
+      ),
       appBar: AppBar(
         title: const Text('Notes'),
         actions: [
-          IconButton(onPressed: () {
-            Navigator.of(context).pushNamed(createOrUpdateNoteRoute);
-          }, 
-          icon: const Icon(Icons.add),
-          ),
+          // IconButton(onPressed: () {
+          //   Navigator.of(context).pushNamed(createOrUpdateNoteRoute);
+          // }, 
+          // icon: const Icon(Icons.add),
+          // ),
           PopupMenuButton<MenuAction>(
             onSelected: (value) async{
               switch(value){
@@ -54,7 +64,6 @@ class _NotesViewState extends State<NotesView> {
                   const AuthEventLogOut(),
                   );
                 }
-            
                 // devtools.log(shouldLogout.toString());
                 // break;
               }

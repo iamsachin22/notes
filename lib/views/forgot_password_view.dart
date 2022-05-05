@@ -52,14 +52,24 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
           child: Column(
             children: [
               const Text(
-                  'If you forgot your password, simply enter your email and we will send you a password reset link.'),
+                  'Enter Email Id will send you the password reset link.',
+                  style: TextStyle(
+                fontSize: 16.0,
+                color: Colors.deepPurple,
+                fontStyle: FontStyle.italic,
+                fontWeight: FontWeight.bold
+              ),),
+              const SizedBox(height: 20,),
               TextField(
                 keyboardType: TextInputType.emailAddress,
                 autocorrect: false,
                 autofocus: true,
                 controller: _controller,
                 decoration: const InputDecoration(
-                  hintText: 'Your email address....',
+                  hintText: 'Enter email ID',
+                  border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                ),
                 ),
               ),
               TextButton(
@@ -69,7 +79,10 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                       .read<AuthBloc>()
                       .add(AuthEventForgotPassword(email: email));
                 },
-                child: const Text('Send me password reset link'),
+                child: const Text('Send me password reset link',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold
+                ),),
               ),
               TextButton(
                 onPressed: () {
@@ -77,7 +90,10 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                         const AuthEventLogOut(),
                       );
                 },
-                child: const Text('Back to login page'),
+                child: const Text('Back to login page',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold
+                ),),
               ),
             ],
           ),

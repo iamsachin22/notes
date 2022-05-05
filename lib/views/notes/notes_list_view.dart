@@ -32,6 +32,7 @@ class NotesListView extends StatelessWidget {
             maxLines: 1,
             softWrap: true,
             overflow: TextOverflow.ellipsis,
+            style: const TextStyle(fontSize:20.0,fontWeight: FontWeight.bold),
           ),
           trailing: IconButton(
             onPressed: () async {
@@ -40,7 +41,8 @@ class NotesListView extends StatelessWidget {
                 onDeleteNote(note);
               }
             },
-            icon: const Icon(Icons.delete),
+            icon: const Icon(Icons.delete_forever,color: Colors.red,
+      size: 30.0,),
           ),
         );
       },
