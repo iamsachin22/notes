@@ -39,13 +39,13 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
           }
           if (state.exception != null) {
             await showErrorDialog(context,
-                'We could not process your request. Please make sure that you are a registered user, or if not, register a user now by going back one step.');
+                'We could not process your request. Please make sure that you are a registered user, if not, register a user.');
           }
         }
       },
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Forgot Password'),
+          title: const Text('Forgot Password')
         ),
         body: Padding(
           padding: const EdgeInsets.all(16.0),
